@@ -26,13 +26,13 @@ impl V1 {
     }
 }
 struct V2 {
-    supports_cmpxchg16b: bool,
-    supports_lahf_sahf: bool,
-    supports_popcnt: bool,
-    supports_sse3_addsubpd: bool,
-    supports_sse4_1: bool,
-    supports_sse4_2: bool,
-    supports_sse3_phaddd: bool,
+    pub supports_cmpxchg16b: bool,
+    pub supports_lahf_sahf: bool,
+    pub supports_popcnt: bool,
+    pub supports_sse3_addsubpd: bool,
+    pub supports_sse4_1: bool,
+    pub supports_sse4_2: bool,
+    pub supports_sse3_phaddd: bool,
 }
 
 impl V2 {
@@ -49,15 +49,15 @@ impl V2 {
     }
 }
 struct V3 {
-    supports_avx: bool,
-    supports_avx2: bool,
-    supports_bmi1: bool,
-    supports_bmi2: bool,
-    supports_f16c: bool,
-    supports_fma: bool,
-    supports_lzcnt: bool,
-    supports_movbe: bool,
-    supports_osxsave: bool,
+    pub supports_avx: bool,
+    pub supports_avx2: bool,
+    pub supports_bmi1: bool,
+    pub supports_bmi2: bool,
+    pub supports_f16c: bool,
+    pub supports_fma: bool,
+    pub supports_lzcnt: bool,
+    pub supports_movbe: bool,
+    pub supports_osxsave: bool,
 }
 
 impl V3 {
@@ -76,11 +76,11 @@ impl V3 {
     }
 }
 struct V4 {
-    supports_avx512f: bool,
-    supports_avx512bw: bool,
-    supports_avx512cd: bool,
-    supports_avx512dq: bool,
-    supports_avx512vl: bool,
+    pub supports_avx512f: bool,
+    pub supports_avx512bw: bool,
+    pub supports_avx512cd: bool,
+    pub supports_avx512dq: bool,
+    pub supports_avx512vl: bool,
 }
 
 impl V4 {
