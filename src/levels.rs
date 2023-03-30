@@ -25,14 +25,14 @@ impl V1 {
         }
     }
 }
-struct V2 {
+pub struct V2 {
     pub supports_cmpxchg16b: bool,
     pub supports_lahf_sahf: bool,
     pub supports_popcnt: bool,
-    pub supports_sse3_addsubpd: bool,
+    pub supports_sse3: bool,
     pub supports_sse4_1: bool,
     pub supports_sse4_2: bool,
-    pub supports_sse3_phaddd: bool,
+    pub supports_ssse3: bool,
 }
 
 impl V2 {
@@ -41,14 +41,14 @@ impl V2 {
             supports_cmpxchg16b: false,
             supports_lahf_sahf: false,
             supports_popcnt: false,
-            supports_sse3_addsubpd: false,
+            supports_sse3: false,
             supports_sse4_1: false,
             supports_sse4_2: false,
-            supports_sse3_phaddd: false,
+            supports_ssse3: false,
         }
     }
 }
-struct V3 {
+pub struct V3 {
     pub supports_avx: bool,
     pub supports_avx2: bool,
     pub supports_bmi1: bool,
@@ -75,7 +75,7 @@ impl V3 {
         }
     }
 }
-struct V4 {
+pub struct V4 {
     pub supports_avx512f: bool,
     pub supports_avx512bw: bool,
     pub supports_avx512cd: bool,
