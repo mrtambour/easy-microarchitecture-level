@@ -141,6 +141,28 @@ impl Sandbox for MicroArchLevel {
         let v1_osce = format!("SCE: {}", self.cpu_v1_support.supports_sce);
         let v1_sse = format!("SSE: {}", self.cpu_v1_support.supports_sse);
         let v1_sse2 = format!("SSE2: {}", self.cpu_v1_support.supports_sse2);
+        let v2_cmpxchg16b = format!("CMPXCHG16B: {}", self.cpu_v2_support.supports_cmpxchg16b);
+        let v2_lahf_sahf = format!("LAHF-SAHF: {}", self.cpu_v2_support.supports_lahf_sahf);
+        let v2_popcnt = format!("POPCNT: {}", self.cpu_v2_support.supports_popcnt);
+        let v2_sse3 = format!("SSE3: {}", self.cpu_v2_support.supports_sse3);
+        let v2_sse4_1 = format!("SSE3: {}", self.cpu_v2_support.supports_sse4_1);
+        let v2_sse4_2 = format!("SSE4_1: {}", self.cpu_v2_support.supports_sse4_2);
+        let v2_sse4_2 = format!("SSE4_2: {}", self.cpu_v2_support.supports_sse4_2);
+        let v2_ssse3 = format!("SSE4_2: {}", self.cpu_v2_support.supports_ssse3);
+        let v3_avx = format!("AVX: {}", self.cpu_v3_support.supports_avx);
+        let v3_avx2 = format!("AVX2: {}", self.cpu_v3_support.supports_avx2);
+        let v3_bmi1 = format!("BMI1: {}", self.cpu_v3_support.supports_bmi1);
+        let v3_bmi2 = format!("BMI2: {}", self.cpu_v3_support.supports_bmi2);
+        let v3_f16c = format!("F16C: {}", self.cpu_v3_support.supports_f16c);
+        let v3_fma = format!("FMA: {}", self.cpu_v3_support.supports_fma);
+        let v3_lzcnt = format!("LZCNT: {}", self.cpu_v3_support.supports_lzcnt);
+        let v3_movbe = format!("MOVBE: {}", self.cpu_v3_support.supports_movbe);
+        let v3_osxsave = format!("OSXSAVE: {}", self.cpu_v3_support.supports_osxsave);
+        let v4_avx512f = format!("AVX512F: {}", self.cpu_v4_support.supports_avx512f);
+        let v4_avx512bw = format!("AVX512BW: {}", self.cpu_v4_support.supports_avx512bw);
+        let v4_avx512cd = format!("AVX512CD: {}", self.cpu_v4_support.supports_avx512cd);
+        let v4_avx512dq = format!("AVX512DQ: {}", self.cpu_v4_support.supports_avx512dq);
+        let v4_avx512vl = format!("AVX512VL: {}", self.cpu_v4_support.supports_avx512vl);
 
         let v1_support_card = Card::new(
             "V1 SUPPORT",
