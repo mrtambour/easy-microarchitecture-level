@@ -12,7 +12,9 @@ impl container::StyleSheet for CustomContainer {
 
         container::Appearance {
             background: Some(iced::Background::Color(color!(25, 25, 35))),
-            border_radius: 10.0,
+            border_radius: 15.0,
+            border_width: 2.0,
+            border_color: color!(90, 90, 90),
             ..appearance
         }
     }
