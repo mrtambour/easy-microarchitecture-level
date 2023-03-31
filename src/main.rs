@@ -1,9 +1,7 @@
-use iced::widget::{Column, Row, Scrollable};
+use iced::widget::{Column, Row};
 use iced::Length::Fixed;
 use iced::{window, Alignment, Element, Length, Sandbox, Settings};
-use iced_native::widget::{
-    button, container, horizontal_rule, text, vertical_rule, Container, Rule,
-};
+use iced_native::widget::{button, container, horizontal_rule, text, Container, Rule};
 use iced_native::Theme;
 use raw_cpuid::CpuId;
 
@@ -201,8 +199,8 @@ impl Sandbox for MicroArchLevel {
 
         let v1_container = Container::new(
             Column::new()
-                .push(text("V1 SUPPORT"))
-                .push(horizontal_rule(15.0))
+                .push(container(text("V1 SUPPORT")).padding(5.0))
+                .push(horizontal_rule(10.0))
                 .push(v1_text_column)
                 .width(Length::Fill)
                 .height(Length::Fill)
@@ -228,7 +226,7 @@ impl Sandbox for MicroArchLevel {
 
         let v2_container = Container::new(
             Column::new()
-                .push(text("V2 SUPPORT"))
+                .push(container(text("V2 SUPPORT")).padding(5.0))
                 .push(horizontal_rule(15.0))
                 .push(v1_text_column)
                 .width(Length::Fill)
@@ -255,7 +253,7 @@ impl Sandbox for MicroArchLevel {
 
         let v3_container = Container::new(
             Column::new()
-                .push(text("V3 SUPPORT"))
+                .push(container(text("V3 SUPPORT")).padding(5.0))
                 .push(horizontal_rule(15.0))
                 .push(v3_text_column)
                 .width(Length::Fill)
@@ -278,7 +276,7 @@ impl Sandbox for MicroArchLevel {
 
         let v4_container = Container::new(
             Column::new()
-                .push(text("V4 SUPPORT"))
+                .push(container(text("V4 SUPPORT")).padding(5.0))
                 .push(horizontal_rule(15.0))
                 .push(v4_text_column)
                 .width(Length::Fill)
