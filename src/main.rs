@@ -164,14 +164,7 @@ impl Sandbox for MicroArchLevel {
         let v4_avx512dq = format!("AVX512DQ: {}", self.cpu_v4_support.supports_avx512dq);
         let v4_avx512vl = format!("AVX512VL: {}", self.cpu_v4_support.supports_avx512vl);
 
-        let v1_support_card = Card::new(
-            "V1 SUPPORT",
-            text(format!("{v1_cmov}\n{v1_cx8}\n{v1_fpu}\n{v1_fxsr}\n{v1_mmx}\n{v1_osfxsr}\n{v1_osce}\n{v1_sse}\n{v1_sse2}")),
-        ).padding_body(10.0)
-        .width(Length::Fill)
-        .height(Length::Fill);
-
-        let v2_text_column = Column::new()
+        let v1_text_column = Column::new()
             .push(text(v2_cmpxchg16b))
             .push(text(v2_lahf_sahf))
             .push(text(v2_popcnt))
@@ -183,11 +176,38 @@ impl Sandbox for MicroArchLevel {
             .align_items(Alignment::Fill)
             .height(Length::Shrink);
 
+        let v1_container = Container::new(
+            Column::new()
+                .push(text("V1 SUPPORT"))
+                .push(horizontal_rule(15.0))
+                .push(v1_text_column)
+                .width(Length::Fill)
+                .height(Length::Fill)
+                .align_items(Alignment::Center),
+        )
+        .style(style::CustomContainer)
+        .height(Length::Fixed(275.0))
+        .width(Fixed(200.0));
+
+        let v1_text_column = Column::new()
+            .push(text(v1_cmov))
+            .push(text(v1_cx8))
+            .push(text(v1_fpu))
+            .push(text(v1_fxsr))
+            .push(text(v1_mmx))
+            .push(text(v1_osfxsr))
+            .push(text(v1_osce))
+            .push(text(v1_sse))
+            .push(text(v1_sse2))
+            .spacing(5.0)
+            .align_items(Alignment::Fill)
+            .height(Length::Shrink);
+
         let v2_container = Container::new(
             Column::new()
                 .push(text("V2 SUPPORT"))
                 .push(horizontal_rule(15.0))
-                .push(v2_text_column)
+                .push(v1_text_column)
                 .width(Length::Fill)
                 .height(Length::Fill)
                 .align_items(Alignment::Center),
@@ -247,10 +267,11 @@ impl Sandbox for MicroArchLevel {
         .width(Fixed(200.0));
 
         let card_row = Row::new()
-            .push(v1_support_card)
+            .push(v1_container)
             .push(v2_container)
             .push(v3_container)
-            .push(v4_container);
+            .push(v4_container)
+            .spacing(10.0);
 
         local_column = local_column.push(card_row).push(scan_button).spacing(10.0);
 
@@ -273,7 +294,7 @@ fn main() {
     println!("Easy Microarchitecture Level");
     let settings = Settings {
         window: window::Settings {
-            size: (800, 500),
+            size: (850, 500),
             resizable: true,
             decorations: true,
 
