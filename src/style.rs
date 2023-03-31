@@ -1,5 +1,6 @@
 use iced::widget::container;
 use iced::Color;
+use iced_native::color;
 
 pub struct CustomContainer;
 
@@ -10,7 +11,7 @@ impl container::StyleSheet for CustomContainer {
         let appearance = style.appearance(&iced::theme::Container::default());
 
         container::Appearance {
-            background: Some(iced::Background::Color(Color::from_rgb(0.0, 0.0, 0.0))),
+            background: Some(iced::Background::Color(color!(25, 25, 35))),
             border_radius: 10.0,
             ..appearance
         }

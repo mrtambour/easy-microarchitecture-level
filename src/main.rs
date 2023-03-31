@@ -1,13 +1,15 @@
 use iced::widget::{Column, Row, Scrollable};
-use iced::{window, Element, Length, Sandbox, Settings};
+use iced::Length::Fixed;
+use iced::{window, Alignment, Element, Length, Sandbox, Settings};
 use iced_aw::native::Card;
-use iced_native::widget::{button, text, Container};
+use iced_native::widget::{button, container, horizontal_rule, text, Container, Rule};
 use iced_native::Theme;
 use raw_cpuid::CpuId;
 
 use crate::levels::{V1, V2, V3, V4};
 
 mod levels;
+mod style;
 
 struct MicroArchLevel {
     cpu_v1_support: V1,
@@ -181,21 +183,35 @@ impl Sandbox for MicroArchLevel {
         .padding_body(10.0)
         .width(Length::Fill)
         .height(Length::Fill);
-        let v4_support_card = Card::new(
-            "V4 SUPPORT",
-            text(format!(
-                "{v4_avx512f}\n{v4_avx512bw}\n{v4_avx512cd}\n{v4_avx512dq}\n{v4_avx512vl}"
-            )),
+
+        let v4_text_column = Column::new()
+            .push(text(v4_avx512f))
+            .push(text(v4_avx512bw))
+            .push(text(v4_avx512cd))
+            .push(text(v4_avx512dq))
+            .push(text(v4_avx512vl))
+            .spacing(5.0)
+            .align_items(Alignment::Fill)
+            .height(Length::Fill);
+
+        let v4_container = Container::new(
+            Column::new()
+                .push(text("V4 SUPPORT"))
+                .push(horizontal_rule(15.0))
+                .push(v4_text_column)
+                .width(Length::Fill)
+                .height(Length::Fill)
+                .align_items(Alignment::Center),
         )
-        .padding_body(10.0)
-        .width(Length::Fill)
-        .height(Length::Fill);
+        .style(style::CustomContainer)
+        .height(Length::Fixed(250.0))
+        .width(Fixed(200.0));
 
         let card_row = Row::new()
             .push(v1_support_card)
             .push(v2_support_card)
             .push(v3_support_card)
-            .push(v4_support_card);
+            .push(v4_container);
 
         local_column = local_column.push(card_row).push(scan_button).spacing(10.0);
 
