@@ -2,8 +2,7 @@ use iced::widget::{Column, Row, Scrollable};
 use iced::{window, Element, Length, Sandbox, Settings};
 use iced_aw::native::Card;
 use iced_native::widget::{button, text, Container};
-use iced_native::{row, Theme};
-use iced_style::container;
+use iced_native::Theme;
 use raw_cpuid::CpuId;
 
 use crate::levels::{V1, V2, V3, V4};
@@ -145,8 +144,7 @@ impl Sandbox for MicroArchLevel {
         let v2_lahf_sahf = format!("LAHF-SAHF: {}", self.cpu_v2_support.supports_lahf_sahf);
         let v2_popcnt = format!("POPCNT: {}", self.cpu_v2_support.supports_popcnt);
         let v2_sse3 = format!("SSE3: {}", self.cpu_v2_support.supports_sse3);
-        let v2_sse4_1 = format!("SSE3: {}", self.cpu_v2_support.supports_sse4_1);
-        let v2_sse4_2 = format!("SSE4_1: {}", self.cpu_v2_support.supports_sse4_2);
+        let v2_sse4_1 = format!("SSE4_1: {}", self.cpu_v2_support.supports_sse4_1);
         let v2_sse4_2 = format!("SSE4_2: {}", self.cpu_v2_support.supports_sse4_2);
         let v2_ssse3 = format!("SSE4_2: {}", self.cpu_v2_support.supports_ssse3);
         let v3_avx = format!("AVX: {}", self.cpu_v3_support.supports_avx);
@@ -170,11 +168,36 @@ impl Sandbox for MicroArchLevel {
         ).padding_body(10.0)
         .width(Length::Fill)
         .height(Length::Fill);
+        let v2_support_card = Card::new(
+            "V2 SUPPORT",
+            text(format!("{v2_cmpxchg16b}\n{v2_lahf_sahf}\n{v2_popcnt}\n{v2_sse3}\n{v2_sse4_1}\n{v2_sse4_2}\n{v2_ssse3}")),
+        ).padding_body(10.0)
+            .width(Length::Fill)
+            .height(Length::Fill);
+        let v3_support_card = Card::new(
+            "V3 SUPPORT",
+            text(format!("{v3_avx}\n{v3_avx2}\n{v3_bmi1}\n{v3_bmi2}\n{v3_f16c}\n{v3_fma}\n{v3_lzcnt}\n{v3_movbe}\n{v3_osxsave}")),
+        )
+        .padding_body(10.0)
+        .width(Length::Fill)
+        .height(Length::Fill);
+        let v4_support_card = Card::new(
+            "V4 SUPPORT",
+            text(format!(
+                "{v4_avx512f}\n{v4_avx512bw}\n{v4_avx512cd}\n{v4_avx512dq}\n{v4_avx512vl}"
+            )),
+        )
+        .padding_body(10.0)
+        .width(Length::Fill)
+        .height(Length::Fill);
 
-        local_column = local_column
+        let card_row = Row::new()
             .push(v1_support_card)
-            .push(scan_button)
-            .spacing(10.0);
+            .push(v2_support_card)
+            .push(v3_support_card)
+            .push(v4_support_card);
+
+        local_column = local_column.push(card_row).push(scan_button).spacing(10.0);
 
         let local_scrollable = Scrollable::new(local_column);
 
