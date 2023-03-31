@@ -1,8 +1,9 @@
 use iced::widget::{Column, Row, Scrollable};
 use iced::Length::Fixed;
 use iced::{window, Alignment, Element, Length, Sandbox, Settings};
-use iced_aw::native::Card;
-use iced_native::widget::{button, container, horizontal_rule, text, Container, Rule};
+use iced_native::widget::{
+    button, container, horizontal_rule, text, vertical_rule, Container, Rule,
+};
 use iced_native::Theme;
 use raw_cpuid::CpuId;
 
@@ -17,6 +18,9 @@ struct MicroArchLevel {
     cpu_v3_support: V3,
     cpu_v4_support: V4,
     cpuid: CpuId,
+    cpu_name: String,
+    cpu_vendor_info: String,
+    cpu_model_id: String,
 }
 
 #[derive(Debug, Clone)]
@@ -34,6 +38,9 @@ impl Sandbox for MicroArchLevel {
             cpu_v3_support: V3::new(),
             cpu_v4_support: V4::new(),
             cpuid: CpuId::new(),
+            cpu_name: String::from("Press Scan"),
+            cpu_vendor_info: String::from("Press Scan"),
+            cpu_model_id: String::from("Press Scan"),
         }
     }
 
@@ -126,6 +133,21 @@ impl Sandbox for MicroArchLevel {
                     .get_extended_feature_info()
                     .unwrap()
                     .has_avx512vl();
+                //
+                self.cpu_name = self
+                    .cpuid
+                    .get_processor_brand_string()
+                    .unwrap()
+                    .as_str()
+                    .to_string();
+                //
+                self.cpu_vendor_info = self.cpuid.get_vendor_info().unwrap().as_str().to_string();
+                self.cpu_model_id = self
+                    .cpuid
+                    .get_feature_info()
+                    .unwrap()
+                    .family_id()
+                    .to_string();
             }
         }
     }
@@ -163,6 +185,7 @@ impl Sandbox for MicroArchLevel {
         let v4_avx512cd = format!("AVX512CD: {}", self.cpu_v4_support.supports_avx512cd);
         let v4_avx512dq = format!("AVX512DQ: {}", self.cpu_v4_support.supports_avx512dq);
         let v4_avx512vl = format!("AVX512VL: {}", self.cpu_v4_support.supports_avx512vl);
+        //
 
         let v1_text_column = Column::new()
             .push(text(v2_cmpxchg16b))
@@ -273,10 +296,19 @@ impl Sandbox for MicroArchLevel {
             .push(v4_container)
             .spacing(10.0);
 
-        let header_container = Container::new(Row::new().push(text("HEADER")))
-            .height(100.0)
-            .width(Length::Fixed(830.0))
-            .style(style::CustomContainer);
+        let header_container = Container::new(
+            Column::new()
+                .push(text(&self.cpu_vendor_info))
+                .push(container(horizontal_rule(12.0)).width(100.0))
+                .push(text(&self.cpu_name))
+                .align_items(Alignment::Center),
+        )
+        .padding(10.0)
+        .height(100.0)
+        .width(Length::Fixed(830.0))
+        .center_x()
+        .center_y()
+        .style(style::CustomContainer);
 
         local_column = local_column
             .push(header_container)
