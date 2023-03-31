@@ -170,12 +170,31 @@ impl Sandbox for MicroArchLevel {
         ).padding_body(10.0)
         .width(Length::Fill)
         .height(Length::Fill);
-        let v2_support_card = Card::new(
-            "V2 SUPPORT",
-            text(format!("{v2_cmpxchg16b}\n{v2_lahf_sahf}\n{v2_popcnt}\n{v2_sse3}\n{v2_sse4_1}\n{v2_sse4_2}\n{v2_ssse3}")),
-        ).padding_body(10.0)
-            .width(Length::Fill)
-            .height(Length::Fill);
+
+        let v2_text_column = Column::new()
+            .push(text(v2_cmpxchg16b))
+            .push(text(v2_lahf_sahf))
+            .push(text(v2_popcnt))
+            .push(text(v2_sse3))
+            .push(text(v2_sse4_1))
+            .push(text(v2_sse4_2))
+            .push(text(v2_ssse3))
+            .spacing(5.0)
+            .align_items(Alignment::Fill)
+            .height(Length::Shrink);
+
+        let v2_container = Container::new(
+            Column::new()
+                .push(text("V2 SUPPORT"))
+                .push(horizontal_rule(15.0))
+                .push(v2_text_column)
+                .width(Length::Fill)
+                .height(Length::Fill)
+                .align_items(Alignment::Center),
+        )
+        .style(style::CustomContainer)
+        .height(Length::Fixed(275.0))
+        .width(Fixed(200.0));
 
         let v3_text_column = Column::new()
             .push(text(v3_avx))
@@ -229,7 +248,7 @@ impl Sandbox for MicroArchLevel {
 
         let card_row = Row::new()
             .push(v1_support_card)
-            .push(v2_support_card)
+            .push(v2_container)
             .push(v3_container)
             .push(v4_container);
 
