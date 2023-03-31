@@ -273,11 +273,21 @@ impl Sandbox for MicroArchLevel {
             .push(v4_container)
             .spacing(10.0);
 
-        local_column = local_column.push(card_row).push(scan_button).spacing(10.0);
+        let header_container = Container::new(Row::new().push(text("HEADER")))
+            .height(100.0)
+            .width(Length::Fixed(830.0))
+            .style(style::CustomContainer);
 
-        let local_scrollable = Scrollable::new(local_column);
+        local_column = local_column
+            .push(header_container)
+            .push(card_row)
+            .push(scan_button)
+            .height(Length::Fill)
+            .width(Length::Fill)
+            .align_items(Alignment::Center)
+            .spacing(10.0);
 
-        Container::new(local_scrollable)
+        Container::new(local_column)
             .center_x()
             .center_y()
             .height(Length::Fill)
@@ -295,7 +305,7 @@ fn main() {
     let settings = Settings {
         window: window::Settings {
             size: (850, 500),
-            resizable: true,
+            resizable: false,
             decorations: true,
 
             ..Default::default()
