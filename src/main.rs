@@ -176,13 +176,33 @@ impl Sandbox for MicroArchLevel {
         ).padding_body(10.0)
             .width(Length::Fill)
             .height(Length::Fill);
-        let v3_support_card = Card::new(
-            "V3 SUPPORT",
-            text(format!("{v3_avx}\n{v3_avx2}\n{v3_bmi1}\n{v3_bmi2}\n{v3_f16c}\n{v3_fma}\n{v3_lzcnt}\n{v3_movbe}\n{v3_osxsave}")),
+
+        let v3_text_column = Column::new()
+            .push(text(v3_avx))
+            .push(text(v3_avx2))
+            .push(text(v3_bmi1))
+            .push(text(v3_bmi2))
+            .push(text(v3_f16c))
+            .push(text(v3_fma))
+            .push(text(v3_lzcnt))
+            .push(text(v3_movbe))
+            .push(text(v3_osxsave))
+            .spacing(5.0)
+            .align_items(Alignment::Fill)
+            .height(Length::Shrink);
+
+        let v3_container = Container::new(
+            Column::new()
+                .push(text("V3 SUPPORT"))
+                .push(horizontal_rule(15.0))
+                .push(v3_text_column)
+                .width(Length::Fill)
+                .height(Length::Fill)
+                .align_items(Alignment::Center),
         )
-        .padding_body(10.0)
-        .width(Length::Fill)
-        .height(Length::Fill);
+        .style(style::CustomContainer)
+        .height(Length::Fixed(275.0))
+        .width(Fixed(200.0));
 
         let v4_text_column = Column::new()
             .push(text(v4_avx512f))
@@ -200,17 +220,17 @@ impl Sandbox for MicroArchLevel {
                 .push(horizontal_rule(15.0))
                 .push(v4_text_column)
                 .width(Length::Fill)
-                .height(Length::Fill)
+                .height(Length::Fixed(275.0))
                 .align_items(Alignment::Center),
         )
         .style(style::CustomContainer)
-        .height(Length::Fixed(250.0))
+        .height(Length::Fixed(275.0))
         .width(Fixed(200.0));
 
         let card_row = Row::new()
             .push(v1_support_card)
             .push(v2_support_card)
-            .push(v3_support_card)
+            .push(v3_container)
             .push(v4_container);
 
         local_column = local_column.push(card_row).push(scan_button).spacing(10.0);
