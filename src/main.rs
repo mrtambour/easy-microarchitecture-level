@@ -1,7 +1,7 @@
 use iced::widget::{Column, Row};
 use iced::Length::Fixed;
 use iced::{window, Alignment, Element, Length, Sandbox, Settings};
-use iced_native::widget::{button, container, horizontal_rule, text, Container, Rule};
+use iced_native::widget::{button, container, horizontal_rule, text, Button, Container, Rule};
 use iced_native::Theme;
 use raw_cpuid::CpuId;
 
@@ -151,8 +151,7 @@ impl Sandbox for MicroArchLevel {
     }
 
     fn view(&self) -> Element<Self::Message> {
-        let scan_button = button("Scan").on_press(Message::ClickedScan);
-        let mut local_column = Column::new();
+        let scan_button = Button::new(text("Scan CPU").size(30.0)).on_press(Message::ClickedScan);
         let v1_cmov = format!("CMOV: {}", self.cpu_v1_support.supports_cmov);
         let v1_cx8 = format!("CX8: {}", self.cpu_v1_support.supports_cx8);
         let v1_fpu = format!("FPU: {}", self.cpu_v1_support.supports_fpu);
@@ -308,16 +307,21 @@ impl Sandbox for MicroArchLevel {
         .center_y()
         .style(style::CustomContainer);
 
-        local_column = local_column
+        let main_column = Column::new()
             .push(header_container)
             .push(card_row)
-            .push(scan_button)
+            .push(
+                container(scan_button)
+                    .center_x()
+                    .center_y()
+                    .height(Length::Fill)
+                    .width(Length::Fill),
+            )
             .height(Length::Fill)
             .width(Length::Fill)
-            .align_items(Alignment::Center)
-            .spacing(10.0);
+            .align_items(Alignment::Center);
 
-        Container::new(local_column)
+        Container::new(main_column)
             .center_x()
             .center_y()
             .height(Length::Fill)
