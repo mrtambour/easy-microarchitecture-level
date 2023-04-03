@@ -49,24 +49,75 @@ impl Sandbox for MicroArchLevel {
     fn update(&mut self, message: Self::Message) {
         match message {
             Message::ClickedScan => {
-                self.cpu_v1_support.supports_cmov =
-                    self.cpuid.get_feature_info().unwrap().has_cmov();
-                self.cpu_v1_support.supports_cx8 =
-                    self.cpuid.get_feature_info().unwrap().has_cmpxchg8b();
-                self.cpu_v1_support.supports_fpu = self.cpuid.get_feature_info().unwrap().has_fpu();
-                self.cpu_v1_support.supports_fxsr =
-                    self.cpuid.get_feature_info().unwrap().has_fxsave_fxstor();
-                self.cpu_v1_support.supports_mmx = self.cpuid.get_feature_info().unwrap().has_mmx();
-                self.cpu_v1_support.supports_osfxsr =
-                    self.cpuid.get_feature_info().unwrap().has_fxsave_fxstor();
-                self.cpu_v1_support.supports_sce = self
-                    .cpuid
-                    .get_extended_processor_and_feature_identifiers()
-                    .unwrap()
-                    .has_syscall_sysret();
-                self.cpu_v1_support.supports_sse = self.cpuid.get_feature_info().unwrap().has_sse();
-                self.cpu_v1_support.supports_sse2 =
-                    self.cpuid.get_feature_info().unwrap().has_sse2();
+                match self.cpuid.get_feature_info() {
+                    Some(feature) => {
+                        self.cpu_v1_support.supports_cmov = if feature.has_cmov() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v1_support.supports_cx8 = if feature.has_cmpxchg8b() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v1_support.supports_fpu = if feature.has_fpu() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v1_support.supports_fxsr = if feature.has_fxsave_fxstor() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v1_support.supports_mmx = if feature.has_mmx() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v1_support.supports_osfxsr = if feature.has_fxsave_fxstor() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v1_support.supports_sse = if feature.has_sse() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v1_support.supports_sse2 = if feature.has_sse2() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+                    }
+                    None => {}
+                }
+
+                match self.cpuid.get_extended_feature_info() {
+                    Some(feature) => {}
+                    None => {}
+                }
+
+                match self.cpuid.get_extended_processor_and_feature_identifiers() {
+                    Some(feature) => {
+                        self.cpu_v1_support.supports_sce = if feature.has_syscall_sysret() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+                    }
+                    None => {}
+                }
+
                 //
                 self.cpu_v2_support.supports_cmpxchg16b =
                     self.cpuid.get_feature_info().unwrap().has_cmpxchg16b();
