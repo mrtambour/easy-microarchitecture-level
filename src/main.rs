@@ -49,212 +49,240 @@ impl Sandbox for MicroArchLevel {
     fn update(&mut self, message: Self::Message) {
         match message {
             Message::ClickedScan => {
-                match self.cpuid.get_feature_info() {
-                    Some(feature) => {
-                        self.cpu_v1_support.supports_cmov = if feature.has_cmov() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                if let Some(feature) = self.cpuid.get_feature_info() {
+                    self.cpu_v1_support.supports_cmov = if feature.has_cmov() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v1_support.supports_cx8 = if feature.has_cmpxchg8b() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v1_support.supports_cx8 = if feature.has_cmpxchg8b() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v1_support.supports_fpu = if feature.has_fpu() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v1_support.supports_fpu = if feature.has_fpu() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v1_support.supports_fxsr = if feature.has_fxsave_fxstor() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v1_support.supports_fxsr = if feature.has_fxsave_fxstor() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v1_support.supports_mmx = if feature.has_mmx() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v1_support.supports_mmx = if feature.has_mmx() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v1_support.supports_osfxsr = if feature.has_fxsave_fxstor() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v1_support.supports_osfxsr = if feature.has_fxsave_fxstor() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v1_support.supports_sse = if feature.has_sse() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v1_support.supports_sse = if feature.has_sse() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v1_support.supports_sse2 = if feature.has_sse2() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v1_support.supports_sse2 = if feature.has_sse2() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v2_support.supports_cmpxchg16b = if feature.has_cmpxchg16b() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v2_support.supports_cmpxchg16b = if feature.has_cmpxchg16b() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v2_support.supports_popcnt = if feature.has_popcnt() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v2_support.supports_popcnt = if feature.has_popcnt() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v2_support.supports_sse3 = if feature.has_sse3() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v2_support.supports_sse3 = if feature.has_sse3() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v2_support.supports_sse4_1 = if feature.has_sse41() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v2_support.supports_sse4_1 = if feature.has_sse41() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v2_support.supports_sse4_2 = if feature.has_sse42() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v2_support.supports_sse4_2 = if feature.has_sse42() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v2_support.supports_ssse3 = if feature.has_ssse3() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v2_support.supports_ssse3 = if feature.has_ssse3() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v3_support.supports_avx = if feature.has_avx() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v3_support.supports_avx = if feature.has_avx() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v3_support.supports_f16c = if feature.has_f16c() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v3_support.supports_f16c = if feature.has_f16c() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v3_support.supports_fma = if feature.has_fma() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v3_support.supports_fma = if feature.has_fma() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v3_support.supports_movbe = if feature.has_movbe() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
-                    }
-                    None => {}
+                    self.cpu_v3_support.supports_movbe = if feature.has_movbe() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
+                } else {
+                    self.cpu_v1_support.supports_cmov = String::from("Error");
+                    self.cpu_v1_support.supports_cx8 = String::from("Error");
+                    self.cpu_v1_support.supports_fpu = String::from("Error");
+                    self.cpu_v1_support.supports_fxsr = String::from("Error");
+                    self.cpu_v1_support.supports_mmx = String::from("Error");
+                    self.cpu_v1_support.supports_osfxsr = String::from("Error");
+                    self.cpu_v1_support.supports_sce = String::from("Error");
+                    self.cpu_v1_support.supports_sse = String::from("Error");
+                    self.cpu_v1_support.supports_sse2 = String::from("Error");
+                    self.cpu_v2_support.supports_cmpxchg16b = String::from("Error");
+                    self.cpu_v2_support.supports_lahf_sahf = String::from("Error");
+                    self.cpu_v2_support.supports_popcnt = String::from("Error");
+                    self.cpu_v2_support.supports_sse3 = String::from("Error");
+                    self.cpu_v2_support.supports_sse4_1 = String::from("Error");
+                    self.cpu_v2_support.supports_sse4_2 = String::from("Error");
+                    self.cpu_v2_support.supports_ssse3 = String::from("Error");
+                    self.cpu_v3_support.supports_avx = String::from("Error");
+                    self.cpu_v3_support.supports_avx2 = String::from("Error");
+                    self.cpu_v3_support.supports_bmi1 = String::from("Error");
+                    self.cpu_v3_support.supports_bmi2 = String::from("Error");
+                    self.cpu_v3_support.supports_f16c = String::from("Error");
+                    self.cpu_v3_support.supports_fma = String::from("Error");
+                    self.cpu_v3_support.supports_lzcnt = String::from("Error");
+                    self.cpu_v3_support.supports_movbe = String::from("Error");
+                    self.cpu_v3_support.supports_osxsave = String::from("Error");
+                    self.cpu_v4_support.supports_avx512f = String::from("Error");
+                    self.cpu_v4_support.supports_avx512bw = String::from("Error");
+                    self.cpu_v4_support.supports_avx512cd = String::from("Error");
+                    self.cpu_v4_support.supports_avx512dq = String::from("Error");
+                    self.cpu_v4_support.supports_avx512vl = String::from("Error");
                 }
 
-                match self.cpuid.get_extended_feature_info() {
-                    Some(feature) => {
-                        self.cpu_v3_support.supports_avx2 = if feature.has_avx2() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                if let Some(feature) = self.cpuid.get_extended_feature_info() {
+                    self.cpu_v3_support.supports_avx2 = if feature.has_avx2() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v3_support.supports_bmi1 = if feature.has_bmi1() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v3_support.supports_bmi1 = if feature.has_bmi1() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v3_support.supports_bmi2 = if feature.has_bmi2() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v3_support.supports_bmi2 = if feature.has_bmi2() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v4_support.supports_avx512f = if feature.has_avx512f() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v4_support.supports_avx512f = if feature.has_avx512f() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v4_support.supports_avx512bw = if feature.has_avx512bw() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v4_support.supports_avx512bw = if feature.has_avx512bw() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v4_support.supports_avx512cd = if feature.has_avx512cd() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v4_support.supports_avx512cd = if feature.has_avx512cd() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v4_support.supports_avx512dq = if feature.has_avx512dq() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v4_support.supports_avx512dq = if feature.has_avx512dq() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v4_support.supports_avx512vl = if feature.has_avx512vl() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
-                    }
-                    None => {}
+                    self.cpu_v4_support.supports_avx512vl = if feature.has_avx512vl() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
+                } else {
+                    self.cpu_v3_support.supports_avx2 = String::from("Error");
+                    self.cpu_v3_support.supports_bmi1 = String::from("Error");
+                    self.cpu_v3_support.supports_bmi2 = String::from("Error");
+                    self.cpu_v4_support.supports_avx512f = String::from("Error");
+                    self.cpu_v4_support.supports_avx512bw = String::from("Error");
+                    self.cpu_v4_support.supports_avx512cd = String::from("Error");
+                    self.cpu_v4_support.supports_avx512dq = String::from("Error");
+                    self.cpu_v4_support.supports_avx512vl = String::from("Error");
                 }
 
-                match self.cpuid.get_extended_processor_and_feature_identifiers() {
-                    Some(feature) => {
-                        self.cpu_v1_support.supports_sce = if feature.has_syscall_sysret() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                if let Some(feature) = self.cpuid.get_extended_processor_and_feature_identifiers() {
+                    self.cpu_v1_support.supports_sce = if feature.has_syscall_sysret() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v2_support.supports_lahf_sahf = if feature.has_lahf_sahf() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
+                    self.cpu_v2_support.supports_lahf_sahf = if feature.has_lahf_sahf() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
 
-                        self.cpu_v3_support.supports_lzcnt = if feature.has_lzcnt() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
-                    }
-                    None => {}
+                    self.cpu_v3_support.supports_lzcnt = if feature.has_lzcnt() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
+                } else {
+                    self.cpu_v1_support.supports_sce = String::from("Error");
+                    self.cpu_v2_support.supports_lahf_sahf = String::from("Error");
+                    self.cpu_v3_support.supports_lzcnt = String::from("Error");
                 }
 
-                match self.cpuid.get_extended_state_info() {
-                    Some(feature) => {
-                        self.cpu_v3_support.supports_osxsave = if feature.has_xgetbv() {
-                            String::from("Yes")
-                        } else {
-                            String::from("No")
-                        };
-                    }
-                    None => {}
+                if let Some(feature) = self.cpuid.get_extended_state_info() {
+                    self.cpu_v3_support.supports_osxsave = if feature.has_xgetbv() {
+                        String::from("Yes")
+                    } else {
+                        String::from("No")
+                    };
+                } else {
+                    self.cpu_v3_support.supports_osxsave = String::from("Error");
                 }
 
-                self.cpu_v4_support.supports_avx512vl = self
-                    .cpuid
-                    .get_extended_feature_info()
-                    .unwrap()
-                    .has_avx512vl();
-                //
                 self.cpu_name = self
                     .cpuid
                     .get_processor_brand_string()
