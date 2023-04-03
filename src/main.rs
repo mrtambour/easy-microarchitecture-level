@@ -318,7 +318,7 @@ impl Sandbox for MicroArchLevel {
         let v2_sse3 = format!("SSE3: {}", self.cpu_v2_support.supports_sse3);
         let v2_sse4_1 = format!("SSE4_1: {}", self.cpu_v2_support.supports_sse4_1);
         let v2_sse4_2 = format!("SSE4_2: {}", self.cpu_v2_support.supports_sse4_2);
-        let v2_ssse3 = format!("SSE4_2: {}", self.cpu_v2_support.supports_ssse3);
+        let v2_ssse3 = format!("SSSE3: {}", self.cpu_v2_support.supports_ssse3);
         let v3_avx = format!("AVX: {}", self.cpu_v3_support.supports_avx);
         let v3_avx2 = format!("AVX2: {}", self.cpu_v3_support.supports_avx2);
         let v3_bmi1 = format!("BMI1: {}", self.cpu_v3_support.supports_bmi1);
