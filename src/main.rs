@@ -181,6 +181,36 @@ impl Sandbox for MicroArchLevel {
                         } else {
                             String::from("No")
                         };
+
+                        self.cpu_v4_support.supports_avx512f = if feature.has_avx512f() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v4_support.supports_avx512bw = if feature.has_avx512bw() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v4_support.supports_avx512cd = if feature.has_avx512cd() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v4_support.supports_avx512dq = if feature.has_avx512dq() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v4_support.supports_avx512vl = if feature.has_avx512vl() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
                     }
                     None => {}
                 }
@@ -219,27 +249,6 @@ impl Sandbox for MicroArchLevel {
                     None => {}
                 }
 
-                //
-                self.cpu_v4_support.supports_avx512f = self
-                    .cpuid
-                    .get_extended_feature_info()
-                    .unwrap()
-                    .has_avx512f();
-                self.cpu_v4_support.supports_avx512bw = self
-                    .cpuid
-                    .get_extended_feature_info()
-                    .unwrap()
-                    .has_avx512bw();
-                self.cpu_v4_support.supports_avx512cd = self
-                    .cpuid
-                    .get_extended_feature_info()
-                    .unwrap()
-                    .has_avx512cd();
-                self.cpu_v4_support.supports_avx512dq = self
-                    .cpuid
-                    .get_extended_feature_info()
-                    .unwrap()
-                    .has_avx512dq();
                 self.cpu_v4_support.supports_avx512vl = self
                     .cpuid
                     .get_extended_feature_info()
