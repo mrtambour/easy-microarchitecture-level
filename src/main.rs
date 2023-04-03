@@ -98,6 +98,42 @@ impl Sandbox for MicroArchLevel {
                         } else {
                             String::from("No")
                         };
+
+                        self.cpu_v2_support.supports_cmpxchg16b = if feature.has_cmpxchg16b() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v2_support.supports_popcnt = if feature.has_popcnt() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v2_support.supports_sse3 = if feature.has_sse3() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v2_support.supports_sse4_1 = if feature.has_sse41() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v2_support.supports_sse4_2 = if feature.has_sse42() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v2_support.supports_ssse3 = if feature.has_ssse3() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
                     }
                     None => {}
                 }
@@ -114,28 +150,16 @@ impl Sandbox for MicroArchLevel {
                         } else {
                             String::from("No")
                         };
+
+                        self.cpu_v2_support.supports_lahf_sahf = if feature.has_lahf_sahf() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
                     }
                     None => {}
                 }
 
-                //
-                self.cpu_v2_support.supports_cmpxchg16b =
-                    self.cpuid.get_feature_info().unwrap().has_cmpxchg16b();
-                self.cpu_v2_support.supports_lahf_sahf = self
-                    .cpuid
-                    .get_extended_processor_and_feature_identifiers()
-                    .unwrap()
-                    .has_lahf_sahf();
-                self.cpu_v2_support.supports_popcnt =
-                    self.cpuid.get_feature_info().unwrap().has_popcnt();
-                self.cpu_v2_support.supports_sse3 =
-                    self.cpuid.get_feature_info().unwrap().has_sse3();
-                self.cpu_v2_support.supports_sse4_1 =
-                    self.cpuid.get_feature_info().unwrap().has_sse41();
-                self.cpu_v2_support.supports_sse4_2 =
-                    self.cpuid.get_feature_info().unwrap().has_sse42();
-                self.cpu_v2_support.supports_ssse3 =
-                    self.cpuid.get_feature_info().unwrap().has_ssse3();
                 //
                 self.cpu_v3_support.supports_avx = self.cpuid.get_feature_info().unwrap().has_avx();
                 self.cpu_v3_support.supports_avx2 =
