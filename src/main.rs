@@ -134,12 +134,54 @@ impl Sandbox for MicroArchLevel {
                         } else {
                             String::from("No")
                         };
+
+                        self.cpu_v3_support.supports_avx = if feature.has_avx() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v3_support.supports_f16c = if feature.has_f16c() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v3_support.supports_fma = if feature.has_fma() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v3_support.supports_movbe = if feature.has_movbe() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
                     }
                     None => {}
                 }
 
                 match self.cpuid.get_extended_feature_info() {
-                    Some(feature) => {}
+                    Some(feature) => {
+                        self.cpu_v3_support.supports_avx2 = if feature.has_avx2() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v3_support.supports_bmi1 = if feature.has_bmi1() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+
+                        self.cpu_v3_support.supports_bmi2 = if feature.has_bmi2() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+                    }
                     None => {}
                 }
 
@@ -156,30 +198,27 @@ impl Sandbox for MicroArchLevel {
                         } else {
                             String::from("No")
                         };
+
+                        self.cpu_v3_support.supports_lzcnt = if feature.has_lzcnt() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
                     }
                     None => {}
                 }
 
-                //
-                self.cpu_v3_support.supports_avx = self.cpuid.get_feature_info().unwrap().has_avx();
-                self.cpu_v3_support.supports_avx2 =
-                    self.cpuid.get_extended_feature_info().unwrap().has_avx2();
-                self.cpu_v3_support.supports_bmi1 =
-                    self.cpuid.get_extended_feature_info().unwrap().has_bmi1();
-                self.cpu_v3_support.supports_bmi2 =
-                    self.cpuid.get_extended_feature_info().unwrap().has_bmi2();
-                self.cpu_v3_support.supports_f16c =
-                    self.cpuid.get_feature_info().unwrap().has_f16c();
-                self.cpu_v3_support.supports_fma = self.cpuid.get_feature_info().unwrap().has_fma();
-                self.cpu_v3_support.supports_lzcnt = self
-                    .cpuid
-                    .get_extended_processor_and_feature_identifiers()
-                    .unwrap()
-                    .has_lzcnt();
-                self.cpu_v3_support.supports_movbe =
-                    self.cpuid.get_feature_info().unwrap().has_movbe();
-                self.cpu_v3_support.supports_osxsave =
-                    self.cpuid.get_extended_state_info().unwrap().has_xgetbv();
+                match self.cpuid.get_extended_state_info() {
+                    Some(feature) => {
+                        self.cpu_v3_support.supports_osxsave = if feature.has_xgetbv() {
+                            String::from("Yes")
+                        } else {
+                            String::from("No")
+                        };
+                    }
+                    None => {}
+                }
+
                 //
                 self.cpu_v4_support.supports_avx512f = self
                     .cpuid
