@@ -1,7 +1,7 @@
 use iced::widget::{Column, Row};
 use iced::Length::Fixed;
 use iced::{window, Alignment, Element, Length, Sandbox, Settings};
-use iced_native::widget::{button, container, horizontal_rule, text, Button, Container, Rule};
+use iced_native::widget::{container, horizontal_rule, text, Button, Container, Rule};
 use iced_native::Theme;
 use raw_cpuid::CpuId;
 
@@ -357,7 +357,7 @@ impl Sandbox for MicroArchLevel {
                 .align_items(Alignment::Center),
         )
         .style(style::CustomContainer)
-        .height(Length::Fixed(275.0))
+        .height(Fixed(275.0))
         .width(Fixed(200.0));
 
         let v1_text_column = Column::new()
@@ -384,7 +384,7 @@ impl Sandbox for MicroArchLevel {
                 .align_items(Alignment::Center),
         )
         .style(style::CustomContainer)
-        .height(Length::Fixed(275.0))
+        .height(Fixed(275.0))
         .width(Fixed(200.0));
 
         let v3_text_column = Column::new()
@@ -411,7 +411,7 @@ impl Sandbox for MicroArchLevel {
                 .align_items(Alignment::Center),
         )
         .style(style::CustomContainer)
-        .height(Length::Fixed(275.0))
+        .height(Fixed(275.0))
         .width(Fixed(200.0));
 
         let v4_text_column = Column::new()
@@ -430,11 +430,11 @@ impl Sandbox for MicroArchLevel {
                 .push(horizontal_rule(15.0))
                 .push(v4_text_column)
                 .width(Length::Fill)
-                .height(Length::Fixed(275.0))
+                .height(Fixed(275.0))
                 .align_items(Alignment::Center),
         )
         .style(style::CustomContainer)
-        .height(Length::Fixed(275.0))
+        .height(Fixed(275.0))
         .width(Fixed(200.0));
 
         let card_row = Row::new()
@@ -453,7 +453,7 @@ impl Sandbox for MicroArchLevel {
         )
         .padding(10.0)
         .height(100.0)
-        .width(Length::Fixed(830.0))
+        .width(Fixed(830.0))
         .center_x()
         .center_y()
         .style(style::CustomContainer);
