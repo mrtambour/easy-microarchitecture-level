@@ -452,7 +452,11 @@ impl Sandbox for MicroArchLevel {
         .center_y()
         .style(style::CustomContainer);
 
-        let main_column = Column::new().push(header_container).push(card_row);
+        let main_column = Column::new()
+            .push(header_container)
+            .push(card_row)
+            .spacing(15.0)
+            .height(Length::Fill);
 
         Container::new(main_column)
             .center_x()
@@ -471,7 +475,7 @@ fn main() {
     println!("Easy Microarchitecture Level");
     let settings = Settings {
         window: window::Settings {
-            size: (850, 500),
+            size: (850, 400),
             resizable: false,
             decorations: true,
 
