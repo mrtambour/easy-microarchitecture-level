@@ -22,9 +22,7 @@ struct MicroArchLevel {
 }
 
 #[derive(Debug, Clone)]
-enum Message {
-    ClickedScan,
-}
+enum Message {}
 
 impl Sandbox for MicroArchLevel {
     type Message = Message;
@@ -297,13 +295,10 @@ impl Sandbox for MicroArchLevel {
     }
 
     fn update(&mut self, message: Self::Message) {
-        match message {
-            Message::ClickedScan => {}
-        }
+        match message {}
     }
 
     fn view(&self) -> Element<Self::Message> {
-        let scan_button = Button::new(text("Scan CPU").size(30.0)).on_press(Message::ClickedScan);
         let v1_cmov = format!("CMOV: {}", self.cpu_v1_support.supports_cmov);
         let v1_cx8 = format!("CX8: {}", self.cpu_v1_support.supports_cx8);
         let v1_fpu = format!("FPU: {}", self.cpu_v1_support.supports_fpu);
@@ -459,19 +454,7 @@ impl Sandbox for MicroArchLevel {
         .center_y()
         .style(style::CustomContainer);
 
-        let main_column = Column::new()
-            .push(header_container)
-            .push(card_row)
-            .push(
-                container(scan_button)
-                    .center_x()
-                    .center_y()
-                    .height(Length::Fill)
-                    .width(Length::Fill),
-            )
-            .height(Length::Fill)
-            .width(Length::Fill)
-            .align_items(Alignment::Center);
+        let main_column = Column::new().push(header_container).push(card_row);
 
         Container::new(main_column)
             .center_x()
