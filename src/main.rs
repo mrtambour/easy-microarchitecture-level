@@ -15,7 +15,6 @@ struct MicroArchLevel {
     cpu_v2_support: V2,
     cpu_v3_support: V3,
     cpu_v4_support: V4,
-    cpuid: CpuId,
     cpu_name: String,
     cpu_vendor_info: String,
     cpu_model_id: String,
@@ -279,14 +278,13 @@ impl Sandbox for MicroArchLevel {
         let cpu_model_id = cpuid.get_feature_info().unwrap().family_id().to_string();
 
         MicroArchLevel {
-            cpu_v1_support: cpu_v1_support,
-            cpu_v2_support: cpu_v2_support,
-            cpu_v3_support: cpu_v3_support,
-            cpu_v4_support: cpu_v4_support,
-            cpuid: CpuId::new(),
-            cpu_name: cpu_name,
-            cpu_vendor_info: cpu_vendor_info,
-            cpu_model_id: cpu_model_id,
+            cpu_v1_support,
+            cpu_v2_support,
+            cpu_v3_support,
+            cpu_v4_support,
+            cpu_name,
+            cpu_vendor_info,
+            cpu_model_id,
         }
     }
 
